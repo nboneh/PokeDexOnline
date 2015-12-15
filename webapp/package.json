@@ -1,0 +1,26 @@
+{
+  "name": "PokeDexOnline",
+  "version": "0.1.3",
+  "description": "An online pokedex",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "pg": "4.x",
+    "express": "~4.9.x"
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nboneh/PokeDexOnline"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}

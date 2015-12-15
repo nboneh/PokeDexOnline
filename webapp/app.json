@@ -1,0 +1,7 @@
+{ 
+  "name": "PokeDex",
+  "description": "An online pokedex",
+  "repository": "https://github.com/nboneh/PokeDexOnline",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static"]
+}
