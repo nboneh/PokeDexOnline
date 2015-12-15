@@ -1,0 +1,7 @@
+package com.Boneh.Nir.Quiz4.model;
+
+abstract class Media 
+{
+    protected String title;
+	public String getTitle()  { return title; }
+}

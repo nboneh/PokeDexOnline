@@ -1,0 +1,17 @@
+package com.Boneh.Nir.Quiz4.model;
+
+public class DVD extends Media
+{
+    private int year;
+    public DVD(String title, int year, int id)
+    {
+        this.title = title;
+        this.year = year;
+        this.id = id;
+    }
+	public int getYear() 	 { return year;  }
+    public String toString()
+    {
+        return year + ": " + title + " [DVD]";
+	}
+}

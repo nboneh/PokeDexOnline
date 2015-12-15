@@ -1,0 +1,29 @@
+package com.Boneh.Nir.Quiz4.dao.hibernate;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.Boneh.Nir.Quiz4.dao.DVDDAO;
+import com.Boneh.Nir.Quiz4.dao.hibernate.util.HibernateUtil;
+import com.Boneh.Nir.Quiz4.model.DVD;
+
+
+public class HibernateDVDDAO
+    implements DVDDAO
+{
+    public  int saveDVD( DVD DVD )
+    {
+        Session session = HibernateUtil.getCurrentSession();
+        
+        Transaction transaction = session.beginTransaction();
+        
+        int id = (String) session.save( DVD );
+        
+        transaction.commit(); // No error handling considered
+        
+        return title;
+    }
+    
+  
+}
+

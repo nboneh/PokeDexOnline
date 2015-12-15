@@ -1,0 +1,21 @@
+package com.Boneh.Nir.Quiz4.Dao;
+
+
+public interface BookDao
+{
+    /**
+     * Saves the given Event.
+     * 
+     * @param event The Event to save.
+     * @return The generated identifier.
+     */
+    int saveBook( Book book );
+    
+    /**
+     * Retrieves the Event with the given identifier.
+     * 
+     * @param id The identifier of the Person to return.
+     * @return The Event with the given identifier.
+     */
+    Event getEvent( int id );
+}

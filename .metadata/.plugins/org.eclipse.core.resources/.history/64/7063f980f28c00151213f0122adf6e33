@@ -1,0 +1,47 @@
+package com.Boneh.Nir.Quiz4.example.client.copy;
+
+import java.util.Collection;
+
+import no.uio.inf5750.example.model.Person;
+
+public class Util
+{
+    /**
+     * @param persons a collection of Persons to print.
+     * @param message the header.
+     */
+    public static void printPersons( Collection<Person> persons, String message )
+    {
+        printHeader( message );
+        
+        for ( Person person : persons )
+        {
+            System.out.println( person.toString() );
+        }
+        
+        System.out.println();
+    }
+    
+    /**
+     * @param person a Person to print.
+     * @param message the header.
+     */
+    public static void printPerson( Person person, String message )
+    {
+        printHeader( message );
+        
+        System.out.println( person.toString() );
+        
+        System.out.println();
+    }
+    
+    /**
+     * @param message the header.
+     */
+    private static void printHeader( String message )
+    {
+        System.out.println( "----------------------------------------------" );
+        System.out.println( message );
+        System.out.println( "----------------------------------------------" );
+    }
+}

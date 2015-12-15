@@ -1,0 +1,63 @@
+package com.Boneh.Nir.Quiz4.client;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.Boneh.Nir.Quiz4.dao.BookDAO;
+import com.Boneh.Nir.Quiz4.dao.DVDDAO;
+import com.Boneh.Nir.Quiz4.dao.hibernate.HibernateBookDAO;
+import com.Boneh.Nir.Quiz4.dao.hibernate.HibernateDVDDAO;
+import com.Boneh.Nir.Quiz4.model.Book;
+import com.Boneh.Nir.Quiz4.model.DVD;
+
+
+public class EventManagerClient
+{
+    private static BookDAO bookDAO;    
+    private static DVDDAO dvdDAO;
+
+    static
+    {
+    	bookDAO = new HibernateBookDAO(); // No dependency injection considered
+        
+    	dvdDAO = new HibernateDVDDAO();
+    }
+    
+    public static void main( String[] args )
+    {        
+    	dvdQuery();
+    	bookQuery();
+    }
+    
+    public static void dvdQuery(){
+    	library.add(new DVD("Dare to go Solo", 2006));
+		library.add(new DVD("Dare to go Solo", 1999));
+		bookDAO.saveBook(new Book("Intro to Programming with Java Applets", "Elizabeth Boese"));
+		library.add(new DVD("Intro to Programming", 2011));
+		library.add(new DVD("Intro to Programming", 1970));
+		library.add(new DVD("Dare to go Solo", 2012));
+		library.add(new DVD("Dare to go Solo", 2000));
+    }
+
+    public static void bookQuery()
+    {
+    	
+    	bookDAO.saveBook(new Book("Dare to go Solo", "Elizabeth Boese"));
+		library.add(new DVD("Dare to go Solo", 2006));
+		library.add(new DVD("Dare to go Solo", 1999));
+		bookDAO.saveBook(new Book("Intro to Programming with Java Applets", "Elizabeth Boese"));
+		library.add(new DVD("Intro to Programming", 2011));
+		library.add(new DVD("Intro to Programming", 1970));
+		library.add(new DVD("Dare to go Solo", 2012));
+		library.add(new DVD("Dare to go Solo", 2000));
+		bookDAO.saveBook(new Book("Dare to go Solo", "Wise Travelguy"));
+		bookDAO.saveBook(new Book("Intro to Programming with Java Applets", "Elizabeth Boe"));
+        
+    
+    }
+    
+   
+}

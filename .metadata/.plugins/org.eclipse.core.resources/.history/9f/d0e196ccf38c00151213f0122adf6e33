@@ -1,0 +1,9 @@
+package com.Boneh.Nir.Quiz4.Dao;
+
+
+public interface BookDao
+{
+    int saveBook( Book book );
+
+    Event getEvent( int id );
+}

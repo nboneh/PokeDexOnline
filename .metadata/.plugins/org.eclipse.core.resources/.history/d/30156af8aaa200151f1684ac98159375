@@ -1,0 +1,19 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class PokemonLoader {
+	  public static void main(String args[]) {
+	      Connection c = null;
+	      try {
+	         Class.forName("org.postgresql.Driver");
+	         c = DriverManager
+	            .getConnection("jdbc:postgresql://ec2-54-83-59-203.compute-1.amazonaws.com:5432/dab3gubtq4co9o",
+	            "bsooqzlgrnlzpw", " _OeBjMpdVS7A-u6vDmBNpDhgEl");
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         System.err.println(e.getClass().getName()+": "+e.getMessage());
+	         System.exit(0);
+	      }
+	      System.out.println("Opened database successfully");
+	   }
+}

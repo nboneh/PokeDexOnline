@@ -1,0 +1,123 @@
+package no.uio.inf5750.example.client;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import no.uio.inf5750.example.dao.EventDAO;
+import no.uio.inf5750.example.dao.PersonDAO;
+import no.uio.inf5750.example.dao.hibernate.HibernateEventDAO;
+import no.uio.inf5750.example.dao.hibernate.HibernatePersonDAO;
+import no.uio.inf5750.example.model.Address;
+import no.uio.inf5750.example.model.Event;
+import no.uio.inf5750.example.model.Person;
+
+import static no.uio.inf5750.example.client.Util.*;
+
+public class EventManagerClient
+{
+    private static EventDAO eventDAO;
+    
+    private static DVDDAO personDAO;
+    
+    static
+    {
+        eventDAO = new HibernateBookDAO(); // No dependency injection considered
+        
+        personDAO = new HibernatePersonDAO();
+    }
+    
+    public static void main( String[] args )
+    {        
+        //testQuery();
+        
+        testCollectionMapping();
+                
+        testIndexedCollectionMapping();
+        
+        testUniDirectionalManyToManyAssociation();
+        
+        testComponentMapping();
+    }
+
+    public static void testQuery()
+    {
+        Person reodorFelgen = new Person( 45, "Reodor", "Felgen" );
+        Person johnnyMcQuick = new Person( 45, "Johnny", "McQuick" );
+        Person henrichVonSchnellfahren = new Person( 45, "Heinrich", "von Schnellfahren" );
+        Person gianlucaGazolini = new Person( 37, "Gianluca", "Gazolini" );
+        
+        personDAO.savePerson( reodorFelgen ); // Saving Persons
+        personDAO.savePerson( johnnyMcQuick );
+        personDAO.savePerson( henrichVonSchnellfahren );
+        personDAO.savePerson( gianlucaGazolini );
+        
+        printPersons( personDAO.getPersonsByAge( 45, 4 ), "Result of getPersonsByAge" );
+        
+        printPerson( personDAO.getPerson( "Reodor", "Felgen" ), "Result of getPerson" );
+    }
+    
+    public static void testCollectionMapping()
+    {
+        Person person = new Person( 28, "John", "Collection" );
+        
+        Set<String> emails = new HashSet<String>();
+        
+        emails.add( "johndoe@gmail.com" );
+        emails.add( "john_doe@hotmail.com" );
+        
+        person.setEmails( emails );
+        
+        personDAO.savePerson( person );
+    }
+    
+    public static void testIndexedCollectionMapping()
+    {
+        Person person = new Person( 28, "Tom", "Index" );
+        
+        List<String> phoneNumbers = new ArrayList<String>();
+        
+        phoneNumbers.add( "+47 111 343 31" );
+        phoneNumbers.add( "+47 222 343 16" );
+        phoneNumbers.add( "+46 333 237 23" );
+        
+        person.setPhoneNumbers( phoneNumbers );
+        
+        personDAO.savePerson( person );
+    }
+    
+    public static void testUniDirectionalManyToManyAssociation()
+    {
+        Person reodorFelgen = new Person( 45, "Reodor", "Felgen" );
+        Person johnnyMcQuick = new Person( 45, "Johnny", "McQuick" );
+        Person henrichVonSchnellfahren = new Person( 45, "Heinrich", "von Schnellfahren" );
+        Person gianlucaGazolini = new Person( 37, "Gianluca", "Gazolini" );
+        
+        personDAO.savePerson( reodorFelgen ); // Saving Persons
+        personDAO.savePerson( johnnyMcQuick );
+        personDAO.savePerson( henrichVonSchnellfahren );
+        personDAO.savePerson( gianlucaGazolini );
+        
+        Event grandPrix = new Event( "Flaaklypa Grand Prix", new Date() );
+        
+        grandPrix.getPersons().add( reodorFelgen ); // Adding Persons to Event
+        grandPrix.getPersons().add( johnnyMcQuick );
+        grandPrix.getPersons().add( henrichVonSchnellfahren );
+        grandPrix.getPersons().add( gianlucaGazolini );
+        
+        eventDAO.saveEvent( grandPrix ); // Saving Event
+    }    
+
+    public static void testComponentMapping()
+    {
+        Person person = new Person( 28, "Greg", "Component" );
+        
+        Address address = new Address( "Calumet street 101", 02120, "Boston" );
+        
+        person.setAddress( address );
+        
+        personDAO.savePerson( person );
+    }
+}

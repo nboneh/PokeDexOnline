@@ -1,0 +1,53 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class PokemonLoader {
+	  public static void main(String args[]) throws IOException {
+	      Connection c = null;
+	      try {
+	         Class.forName("org.postgresql.Driver");
+	         c = DriverManager
+	            .getConnection("jdbc:postgresql://ec2-54-83-59-203.compute-1.amazonaws.com:5432/dab3gubtq4co9o?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory",
+	            "bsooqzlgrnlzpw", "_OeBjMpdVS7A-u6vDmBNpDhgEl");
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	         System.err.println(e.getClass().getName()+": "+e.getMessage());
+	         System.exit(0);
+	      }
+	      System.out.println("Opened database successfully");
+	      //for(int i = 1;  i <= 718; i++){
+	    	  int i = 1;
+	    	  URL pokeURL = new URL("http://www.serebii.net/pokedex-xy/" + String.format("%03d", i) + ".shtml" );
+	          BufferedReader in = new BufferedReader(
+	          new InputStreamReader(pokeURL.openStream()));
+
+	          String inputLine;
+	          String name;
+	          String type1;
+	          String type2;
+	          
+	          while ((inputLine = in.readLine()) != null){
+	        	  //Name attribute
+	        	  if(inputLine.contains("<title>")){
+	        		  name = inputLine.replace("<title>", "");
+	        		  name = name.substring(0, name.indexOf(" -"));
+	        		  System.out.println(name);
+	        	  }
+	        	  //Type attribute
+	        	  if(inputLine.contains("<td class=\"cen\"><a href=")){
+	        		  System.out.println(inputLine);
+	        		  String[] split = inputLine.split("href");
+	        		  
+	        	  }
+	       
+	          }
+	          in.close();
+	    	  
+	      //}
+	   }
+}

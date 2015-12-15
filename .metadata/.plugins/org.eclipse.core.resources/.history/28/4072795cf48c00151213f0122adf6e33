@@ -1,0 +1,10 @@
+package com.Boneh.Nir.Quiz4.dao;
+
+
+
+public interface DVDDAO
+{
+    String saveDVD( DVD book );
+
+    DVD getDVD( String title );
+}

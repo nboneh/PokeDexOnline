@@ -1,0 +1,10 @@
+package com.Boneh.Nir.Quiz4.Dao;
+import com.Boneh.Nir.Quiz4.model.Book;
+
+
+public interface BookDAO
+{
+    String saveBook( Book book );
+
+    Book getEvent( String title );
+}

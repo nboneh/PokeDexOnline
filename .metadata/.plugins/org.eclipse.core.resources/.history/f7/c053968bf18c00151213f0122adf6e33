@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  
+	<class name="no.uio.inf5750.example.model.Event" table="events">
+    
+		<id name="id" column="event_id">
+      <generator class="native"/>
+    </id>
+		
+		<property name="title" not-null="true" unique="true"/>
+		<property name="date" type="date" column="event_date"/>
+		
+		<set name="persons" table="events_persons">
+      <key column="event_id"/>
+      <many-to-many column="person_id" class="no.uio.inf5750.example.model.Person"/>
+    </set>
+				
+	</class>
+	
+</hibernate-mapping>

@@ -1,0 +1,42 @@
+package com.Boneh.Nir.Quiz4.Dao;
+
+import java.util.Collection;
+
+import no.uio.inf5750.example.model.Person;
+
+public interface PersonDAO
+{
+    /**
+     * Saves the given Person.
+     * 
+     * @param person The Person to save.
+     * @return The generated identifier.
+     */
+    int savePerson( Person person );
+    
+    /**
+     * Retrievs the Person with the given identifier.
+     * 
+     * @param id The identifier of the Person to return.
+     * @return The Person with the given identifier.
+     */
+    Person getPerson( int id );
+    
+    /**
+     * Retrives the Person with the given first name and the given last name.
+     * 
+     * @param firstName The first name of the Person to return.
+     * @param lastName The last name of the Person to return.
+     * @return The Person with the given first name and the given last name.
+     */
+    Person getPerson( String firstName, String lastName );
+    
+    /**
+     * Retrives Persons of the given age.
+     * 
+     * @param age The age of the Persons to return.
+     * @param maxResults The maximum number of Persons to return.
+     * @return A Collection of Persons of the given age.
+     */
+    Collection<Person> getPersonsByAge( int age, int maxResults );
+}
