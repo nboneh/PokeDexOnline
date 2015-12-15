@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename compilation unit &apos;practice.HashMaps.java&apos; to &apos;HashMap.java&apos;&#x0A;- Original project: &apos;practice&apos;&#x0A;- Original element: &apos;practice.HashMaps.java&apos;&#x0A;- Renamed element: &apos;practice.HashMap.java&apos;" description="Rename compilation unit &apos;HashMaps.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;practice{HashMaps.java" name="HashMap.java" references="false" stamp="1420510633281" version="1.0"/>
-</session>

@@ -1,5 +1,0 @@
-abstract class Media 
-{
-    protected String title;
-	public String getTitle()  { return title; }
-}

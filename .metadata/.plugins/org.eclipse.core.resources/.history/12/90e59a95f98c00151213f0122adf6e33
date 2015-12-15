@@ -1,9 +1,0 @@
-package com.Boneh.Nir.Quiz4.model;
-
-public abstract class Media 
-{
-    protected String title;
-    protected int id;
-	public String getTitle()  { return title; }
-	public int getId()  { return id; }
-}

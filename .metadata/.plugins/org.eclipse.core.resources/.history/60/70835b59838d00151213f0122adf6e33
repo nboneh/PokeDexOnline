@@ -1,9 +1,0 @@
-package com.Boneh.Nir.Quiz4.client;
-
-public class SpringBook4Driver {
-	
-	public static void main(String[] args){
-		
-	}
-
-}
