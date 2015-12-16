@@ -19,6 +19,10 @@ function getResultJSON(sqlResult, callback){
 	return callback + "(" + JSON.stringify(sqlResult.rows) + ")"
 }
 
+function isAlphabetical(str){
+	return str.match(/[a-z]/i)
+}
+
 
 app.get('/search',function(req,res) {
 	var searchTerm = req.query.searchTerm
@@ -40,7 +44,7 @@ app.get('/search',function(req,res) {
 				res.send(getResultJSON(result,callBack));
 			})
  
-		} else {
+		} else if(isAlphabetical(searchTerm)) {
 
 			//Seach by type
 		    searchTerm = searchTerm.toLowerCase()
@@ -61,6 +65,10 @@ app.get('/search',function(req,res) {
 			})
 	
     	}
+    	var emptyQuery = {}
+    	emptyQuery.rows = []
+    	getResultJSON(emptyQuery, callBack)
+    	done()
 	})
 })
 
