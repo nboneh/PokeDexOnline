@@ -15,34 +15,27 @@ function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function getResultJSON(sqlResult, pageNum){
-	var retJson = {}
-	retJson.numberOfPages = Math.floor(sqlResult.rowCount/TOTAL_POKEMON_PER_PAGE) + 1
-	if(pageNum == null)
-		retJson.data = sqlResult.rows.slice(0, TOTAL_POKEMON_PER_PAGE)
-	else 
-		retJson.data = sqlResult.rows.slice((pageNum-1) * TOTAL_POKEMON_PER_PAGE, (pageNum) * TOTAL_POKEMON_PER_PAGE)
-
-	return retJson
+function getResultJSON(sqlResult, callback){
+	return callback + "(" + JSON.stringify(sqlResult.rows) + ")"
 }
 
 
 app.get('/search',function(req,res) {
 	var searchTerm = req.query.searchTerm
-	var pageNum = req.query.pageNum
+	var callBack = req.query.callback
 
 	pg.connect(DB_URL, function(err, client, done) {
 		//No search return all pokemon
 		if (searchTerm == null){
 			var query = "SELECT * FROM poke_dex ORDER BY id ASC"
 			client.query(query, function(err, result) {
-				res.send(getResultJSON(result,pageNum));
+				res.send(getResultJSON(result,callBack));
 			})
 		//Search by id 
 		} else if (isNumeric(searchTerm)){
 			var idQuery = "SELECT * FROM poke_dex WHERE id = " + searchTerm 
 			client.query(idQuery, function(err, result) {
-				res.send(getResultJSON(result,pageNum));
+				res.send(getResultJSON(result,callBack));
 			})
  
 		} else {
@@ -52,14 +45,14 @@ app.get('/search',function(req,res) {
 			var typeQuery = "SELECT * FROM poke_dex WHERE type1 = \'" + searchTerm + "\' OR type2 = \'"+ searchTerm + "\' ORDER BY id ASC" 
 			client.query(typeQuery, function(err, result) {
 				if (result.rowCount > 0){
-					res.send(getResultJSON(result,pageNum));
+					res.send(getResultJSON(result,callBack));
 					return 
 				} else {
 					//Seach by name
 				    var nameQuery = "SELECT * FROM poke_dex WHERE name like \'" + capitalizeFirstLetter(searchTerm) + "%\' ORDER BY name ASC"
 					client.query(nameQuery, function(err, result) {
 						var nameCount = result.rows[0].count
-						res.send(getResultJSON(result,pageNum))
+						res.send(getResultJSON(result,callBack))
 					})
 			 	}
 			})

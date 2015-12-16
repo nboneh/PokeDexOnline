@@ -30,6 +30,8 @@ public class PokemonLoader {
 			String description = null;
 			boolean getTypes = false;
 			
+			int descriptionInNextLineCount = 0;
+			
 			boolean descriptionInNextLine = false;
 
 			while ((inputLine = in.readLine()) != null){
@@ -55,7 +57,11 @@ public class PokemonLoader {
 			
 				}
 				else if(inputLine.contains("foox")){
-					descriptionInNextLine = true;
+					descriptionInNextLineCount++;
+					if(descriptionInNextLineCount == 2){
+						descriptionInNextLine = true;
+						descriptionInNextLineCount = -10000;
+					}
 				}
 
 				//Description attribute
