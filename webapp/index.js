@@ -30,7 +30,7 @@ app.get('/search',function(req,res) {
 
 	pg.connect(DB_URL, function(err, client, done) {
 		//No search return all pokemon
-		if (searchTerm == null || searchTerm == ''){
+		if (searchTerm == null || searchTerm.length === 0){
 			var query = "SELECT * FROM poke_dex ORDER BY id ASC"
 			client.query(query, function(err, result) {
 				done()
@@ -64,11 +64,12 @@ app.get('/search',function(req,res) {
 			 	}
 			})
 	
-    	}
-    	var emptyQuery = {}
-    	emptyQuery.rows = []
-    	getResultJSON(emptyQuery, callBack)
-    	done()
+    	} else {
+    		var emptyQuery = {}
+	    	emptyQuery.rows = []
+	    	res.send(getResultJSON(emptyQuery, callBack))
+	    	done()
+        }
 	})
 })
 

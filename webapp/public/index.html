@@ -39,6 +39,8 @@
 	
 	<script>
 		var clickedPokemon;
+
+
 		function pad(num, size) {
 			var s = num+"";
 			while (s.length < size) s = "0" + s;
@@ -53,7 +55,8 @@
 		}
 		function search(searchField){
 			clear()
-			$.getJSON("https://pokedexa.herokuapp.com/search?callback=?&searchTerm="+searchField,	function(dataList) {
+			$.getJSON("/search?callback=?&searchTerm="+searchField,	function(dataList) {
+				clear()
 				document.getElementById("load").style.display = 'none';
 				makeList(dataList)
 			});
