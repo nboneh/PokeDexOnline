@@ -55,7 +55,6 @@ app.get('/search',function(req,res) {
 				    var nameQuery = "SELECT * FROM poke_dex WHERE name like \'" + capitalizeFirstLetter(searchTerm) + "%\' ORDER BY name ASC"
 					client.query(nameQuery, function(err, result) {
 						done()
-						var nameCount = result.rows[0].count
 						res.send(getResultJSON(result,callBack))
 					})
 			 	}
