@@ -1,8 +1,135 @@
-<html>
-<head>
-</head>
-<body>
-	<p> YO </p>
-</body>
-
+<html> 
+	
+	<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/spinner.css">
+	<link rel="shortcut icon" href="images/pokeball.ico">
+	<title>Pokedex</title>
+	<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	</head>
+	<body background="images/pokebackground.png"> 
+		
+		<img id="pokedex" src="images/pokedex.gif" class="centered"> </img>
+		<div id="left_screen">
+			<div id="load" class= "spinner"></div>
+			
+			<div id="main_pokemon_info" hidden=true>
+				<br>
+				<center><h1 id="main_pokemon_title"></h1></center>
+				<img id="main_pokemon_image"  > </img>
+				<center> <img id="type1"  /> <img id="type2" /></center>
+				<p id="pokemon_description"> </p>
+			</div>
+		
+			<div id="no_found" hidden=true>
+				<center><h1> No Pokemon Found </h1></center>
+			</div>
+		</div>
+		
+		<div id="right_screen">
+			<br>
+			 <center><input style="width:75%" type="text" placeholder="Search by name, type, or id"  id = "searchBar" maxlength="15"  onKeyUp="search(this.value);"/>
+			 <p></p>
+			<div id="listOfPokemon">
+			</div>
+		</div>
+		
+	</body>
+	
+	<script>
+		var clickedPokemon;
+		function pad(num, size) {
+			var s = num+"";
+			while (s.length < size) s = "0" + s;
+			return s;
+		}
+		function clear(){
+			var pokemonList = 	document.getElementById("listOfPokemon")
+			while (pokemonList.firstChild) pokemonList.removeChild(pokemonList.firstChild);
+			document.getElementById("load").style.display = 'initial';
+			document.getElementById("main_pokemon_info").hidden = true
+			document.getElementById("no_found").hidden = true
+		}
+		function search(searchField){
+			clear()
+			$.getJSON("https://pokedexa.herokuapp.com/search?callback=?&searchTerm="+searchField,	function(dataList) {
+				document.getElementById("load").style.display = 'none';
+				makeList(dataList)
+			});
+		}
+		
+		function setMainPokemon(data){
+			var formattedId = pad(data.id, 3)
+			document.getElementById("main_pokemon_title").innerText = data.name + " #" + formattedId
+			document.getElementById("main_pokemon_image").src = "http://www.serebii.net/xy/pokemon/" +  formattedId + ".png"
+			document.getElementById("type1").src = "http://www.serebii.net/pokedex-bw/type/" + data.type1 + ".gif"
+			if(data.type2 != null){
+				document.getElementById("type2").hidden = false
+				document.getElementById("type2").src = "http://www.serebii.net/pokedex-bw/type/" + data.type2 + ".gif"
+			}
+			else 
+				document.getElementById("type2").hidden = true
+			document.getElementById("pokemon_description").innerText = data.description.replace(new RegExp('&eacute;', 'g'), "e")
+		}
+		
+		function makeList(dataList){
+			var pokemonList = 	document.getElementById("listOfPokemon")
+			for(i in dataList){
+				var data = dataList[i]
+				data.name = data.name.replace("&#9792;", " (female)")
+				data.name = data.name.replace("&#9794;", " (male)")
+				var pokemon = document.createElement("div")
+				pokemon.style.border = "1px solid black"
+				pokemon.style.height = "32px"
+				pokemon.value = data
+				pokemon.onclick = function() { 
+					if(clickedPokemon)
+						clickedPokemon.style.backgroundColor = "transparent"
+					clickedPokemon = this
+					setMainPokemon(this.value) 
+					this.style.backgroundColor = "lightgreen"
+				}
+				
+				pokemon.onmouseover = function(){
+					if(this == clickedPokemon)
+						return 
+					this.style.backgroundColor = "lightblue"
+				}
+				pokemon.onmouseout = function(){
+					if(this == clickedPokemon)
+						return 
+					this.style.backgroundColor = "transparent"
+				}
+				
+				var p = document.createElement("p")
+				var formattedId = pad(data.id, 3)
+				p.innerText = "#" + formattedId + " " + data.name
+				p.style.display = 'inline'
+				p.style.top = '7px'
+				p.style.position = 'relative'
+				
+				
+				var img = document.createElement("img")
+				img.src = "http://www.serebii.net/pokedex-xy/icon/" + formattedId + ".png"
+				img.align = "right"
+				
+				pokemon.appendChild(p)
+				pokemon.appendChild(img)
+				
+				pokemonList.appendChild(pokemon)
+			}
+			
+			
+			if(pokemonList.firstChild){
+				pokemonList.firstChild.click()
+				document.getElementById("main_pokemon_info").hidden = false
+			} else {
+			    document.getElementById("no_found").hidden = false
+			}
+			 
+		}
+		
+		search("")
+	</script>
 </html>

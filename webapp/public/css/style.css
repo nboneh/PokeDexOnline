@@ -1,0 +1,71 @@
+#load{
+        position: absolute;
+        bottom: 50%;
+        left: 50%;
+}
+
+#no_found{
+	position: relative;
+	top: 40%;
+	left: 50%;
+	background-color: red;
+	  transform: translate(-50%, -40%);
+}
+	
+body { 
+ 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#pokedex {
+  position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  width: 66%;
+  height: 80%;
+   /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+#left_screen{
+	position: fixed;
+	top: 30.5%;
+	left: 19.5%;
+	width:27.2%;
+	height:44.7%;
+	overflow: auto;
+}
+
+#right_screen{
+	position: fixed;
+	top: 31.3%;
+	left: 55.3%;
+	width:24.8%;
+	height:49.65%;
+    overflow: auto;
+}
+
+#main_pokemon_title{
+	display: inline;
+}
+#main_pokemon_image{
+	position: relative;
+	left: 20%;
+	width: 60%;
+	height: 60%;
+}
+
+#listOfPokemon{
+	position: relative;
+	left: 2%;
+	width: 96%;
+}
+
+#pokemon_description{
+	position: relative;
+	left: 2%;
+	width: 96%;
+}
