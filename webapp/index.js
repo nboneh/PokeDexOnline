@@ -29,12 +29,14 @@ app.get('/search',function(req,res) {
 		if (searchTerm == null || searchTerm == ''){
 			var query = "SELECT * FROM poke_dex ORDER BY id ASC"
 			client.query(query, function(err, result) {
+				done()
 				res.send(getResultJSON(result,callBack));
 			})
 		//Search by id 
 		} else if (isNumeric(searchTerm)){
 			var idQuery = "SELECT * FROM poke_dex WHERE id = " + searchTerm 
 			client.query(idQuery, function(err, result) {
+				done()
 				res.send(getResultJSON(result,callBack));
 			})
  
@@ -45,12 +47,14 @@ app.get('/search',function(req,res) {
 			var typeQuery = "SELECT * FROM poke_dex WHERE type1 = \'" + searchTerm + "\' OR type2 = \'"+ searchTerm + "\' ORDER BY id ASC" 
 			client.query(typeQuery, function(err, result) {
 				if (result.rowCount > 0){
+					done()
 					res.send(getResultJSON(result,callBack));
 					return 
 				} else {
 					//Seach by name
 				    var nameQuery = "SELECT * FROM poke_dex WHERE name like \'" + capitalizeFirstLetter(searchTerm) + "%\' ORDER BY name ASC"
 					client.query(nameQuery, function(err, result) {
+						done()
 						var nameCount = result.rows[0].count
 						res.send(getResultJSON(result,callBack))
 					})
