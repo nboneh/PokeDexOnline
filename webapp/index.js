@@ -26,7 +26,7 @@ app.get('/search',function(req,res) {
 
 	pg.connect(DB_URL, function(err, client, done) {
 		//No search return all pokemon
-		if (searchTerm == null){
+		if (searchTerm == null || searchTerm == ''){
 			var query = "SELECT * FROM poke_dex ORDER BY id ASC"
 			client.query(query, function(err, result) {
 				res.send(getResultJSON(result,callBack));
